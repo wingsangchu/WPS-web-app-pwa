@@ -37,6 +37,9 @@
   const scoreEl = document.getElementById('score');
   const levelEl = document.getElementById('level');
   const linesEl = document.getElementById('lines');
+  const scoreMEl = document.getElementById('score-m');
+  const levelMEl = document.getElementById('level-m');
+  const linesMEl = document.getElementById('lines-m');
   const overlay = document.getElementById('overlay');
   const overlayTitle = document.getElementById('overlay-title');
   const overlayMsg = document.getElementById('overlay-msg');
@@ -233,6 +236,9 @@
     scoreEl.textContent = score;
     levelEl.textContent = level;
     linesEl.textContent = lines;
+    scoreMEl.textContent = score;
+    levelMEl.textContent = level;
+    linesMEl.textContent = lines;
   }
 
   function getSpeed() {
@@ -423,15 +429,19 @@
     }
   });
 
-  document.getElementById('btn-rotate').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (!paused && !gameOver && piece) rotatePiece();
-  });
+  function bindTap(id, fn) {
+    const el = document.getElementById(id);
+    const handler = (e) => {
+      e.preventDefault();
+      fn();
+    };
+    el.addEventListener('touchstart', handler, { passive: false });
+    el.addEventListener('mousedown', handler);
+  }
 
-  document.getElementById('btn-drop').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (!paused && !gameOver && piece) hardDrop();
-  });
+  bindTap('btn-rotate', () => { if (!paused && !gameOver && piece) rotatePiece(); });
+  bindTap('btn-drop', () => { if (!paused && !gameOver && piece) hardDrop(); });
+  bindTap('btn-pause', () => { if (piece) togglePause(); });
 
   // Swipe support
   let touchStartX = null;

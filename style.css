@@ -18,7 +18,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {
@@ -62,7 +62,11 @@ header h1 {
   justify-content: center;
 }
 
-#left-panel, #right-panel {
+#left-panel {
+  display: none;
+}
+
+#right-panel {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -200,15 +204,60 @@ kbd {
   transform: scale(0.97);
 }
 
-/* Touch Controls */
-#touch-controls {
-  display: none;
-  gap: 8px;
+/* Mobile Stats Bar — always visible */
+#mobile-stats {
+  display: flex;
+  gap: 12px;
   justify-content: center;
-  flex-wrap: wrap;
+  width: 100%;
+}
+
+#mobile-stats .stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#mobile-stats .label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+#mobile-stats .value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Touch Controls — always visible */
+#touch-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
   padding: 4px 0;
   width: 100%;
-  max-width: 340px;
+  max-width: 360px;
+}
+
+#touch-row-1 {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+#touch-row-2 {
+  display: flex;
+  gap: 8px;
+  width: 100%;
 }
 
 .touch-btn {
@@ -216,10 +265,10 @@ kbd {
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  width: 68px;
-  height: 58px;
+  width: 72px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -229,10 +278,17 @@ kbd {
 }
 
 .touch-btn.wide {
-  width: 100%;
+  flex: 1;
   font-size: 1rem;
-  height: 48px;
+  height: 50px;
   letter-spacing: 0.2em;
+}
+
+.touch-btn.pause {
+  width: 60px;
+  font-size: 0.8rem;
+  height: 50px;
+  letter-spacing: 0.05em;
 }
 
 .touch-btn:active {
@@ -243,19 +299,24 @@ kbd {
 /* Responsive */
 @media (max-width: 600px) {
   header h1 {
-    font-size: 1.4rem;
-  }
-
-  #left-panel {
-    display: none;
+    font-size: 1.3rem;
   }
 
   #right-panel {
-    min-width: 80px;
+    min-width: 70px;
   }
 
   #right-panel #controls-info {
     display: none;
+  }
+
+  #right-panel .info-box {
+    padding: 8px;
+  }
+
+  #next-piece {
+    width: 70px;
+    height: 70px;
   }
 
   #board {
@@ -264,11 +325,7 @@ kbd {
   }
 
   .info-box .value {
-    font-size: 1.2rem;
-  }
-
-  #touch-controls {
-    display: flex;
+    font-size: 1rem;
   }
 
   #game-container {
@@ -276,29 +333,42 @@ kbd {
   }
 
   #app {
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
   }
 }
 
 @media (max-width: 400px) {
   #board {
-    width: 200px;
-    height: 400px;
+    width: 180px;
+    height: 360px;
   }
 
   #right-panel {
-    min-width: 70px;
+    min-width: 60px;
+  }
+
+  #next-piece {
+    width: 56px;
+    height: 56px;
   }
 
   .info-box {
-    padding: 8px;
+    padding: 6px;
   }
-}
 
-@media (pointer: coarse) {
-  #touch-controls {
-    display: flex;
+  #mobile-stats .stat {
+    padding: 4px 10px;
+  }
+
+  #mobile-stats .value {
+    font-size: 0.95rem;
+  }
+
+  .touch-btn {
+    width: 64px;
+    height: 50px;
+    font-size: 1.3rem;
   }
 }
 

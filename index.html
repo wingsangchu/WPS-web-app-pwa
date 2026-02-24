@@ -20,6 +20,12 @@
       <h1>TETRIS</h1>
     </header>
 
+    <div id="mobile-stats">
+      <div class="stat"><span class="label">SCORE</span><span id="score-m" class="value">0</span></div>
+      <div class="stat"><span class="label">LEVEL</span><span id="level-m" class="value">1</span></div>
+      <div class="stat"><span class="label">LINES</span><span id="lines-m" class="value">0</span></div>
+    </div>
+
     <main id="game-container">
       <aside id="left-panel">
         <div class="info-box">
@@ -63,11 +69,16 @@
     </main>
 
     <div id="touch-controls">
-      <button class="touch-btn" id="btn-left" aria-label="Move Left">&larr;</button>
-      <button class="touch-btn" id="btn-down" aria-label="Soft Drop">&darr;</button>
-      <button class="touch-btn" id="btn-rotate" aria-label="Rotate">&uarr;</button>
-      <button class="touch-btn" id="btn-right" aria-label="Move Right">&rarr;</button>
-      <button class="touch-btn wide" id="btn-drop" aria-label="Hard Drop">DROP</button>
+      <div id="touch-row-1">
+        <button class="touch-btn" id="btn-left" aria-label="Move Left">&larr;</button>
+        <button class="touch-btn" id="btn-down" aria-label="Soft Drop">&darr;</button>
+        <button class="touch-btn" id="btn-rotate" aria-label="Rotate">&#x21BB;</button>
+        <button class="touch-btn" id="btn-right" aria-label="Move Right">&rarr;</button>
+      </div>
+      <div id="touch-row-2">
+        <button class="touch-btn wide" id="btn-drop" aria-label="Hard Drop">DROP</button>
+        <button class="touch-btn pause" id="btn-pause" aria-label="Pause">&#10074;&#10074;</button>
+      </div>
     </div>
   </div>
 
