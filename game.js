@@ -45,7 +45,8 @@
   const overlayMsg = document.getElementById('overlay-msg');
   const btnStart = document.getElementById('btn-start');
 
-  let board, piece, nextPiece, score, level, lines, gameOver, paused, dropTimer, lastTime;
+  let board = createBoard();
+  let piece, nextPiece, score, level, lines, gameOver, paused, dropTimer, lastTime;
   let animatingRows = [];
   let animFrame = null;
 
@@ -352,14 +353,18 @@
     }
   }
 
+  function inputBlocked() {
+    return gameOver || !piece || animatingRows.length > 0;
+  }
+
   // Keyboard controls
   document.addEventListener('keydown', (e) => {
-    if (gameOver || !piece) return;
+    if (!piece) return;
     if (e.key === 'p' || e.key === 'P') {
       togglePause();
       return;
     }
-    if (paused) return;
+    if (paused || inputBlocked()) return;
 
     switch (e.key) {
       case 'ArrowLeft':
@@ -419,10 +424,10 @@
     el.addEventListener('mouseleave', stop);
   }
 
-  bindTouch('btn-left', () => { if (!paused && !gameOver && piece) moveLeft(); });
-  bindTouch('btn-right', () => { if (!paused && !gameOver && piece) moveRight(); });
+  bindTouch('btn-left', () => { if (!paused && !inputBlocked()) moveLeft(); });
+  bindTouch('btn-right', () => { if (!paused && !inputBlocked()) moveRight(); });
   bindTouch('btn-down', () => {
-    if (!paused && !gameOver && piece) {
+    if (!paused && !inputBlocked()) {
       moveDown();
       score += 1;
       updateUI();
@@ -439,8 +444,8 @@
     el.addEventListener('mousedown', handler);
   }
 
-  bindTap('btn-rotate', () => { if (!paused && !gameOver && piece) rotatePiece(); });
-  bindTap('btn-drop', () => { if (!paused && !gameOver && piece) hardDrop(); });
+  bindTap('btn-rotate', () => { if (!paused && !inputBlocked()) rotatePiece(); });
+  bindTap('btn-drop', () => { if (!paused && !inputBlocked()) hardDrop(); });
   bindTap('btn-pause', () => { if (piece) togglePause(); });
 
   // Swipe support
